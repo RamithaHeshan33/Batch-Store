@@ -1,0 +1,23 @@
+.batch-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin: 20px;
+  }
+  .batch {
+    text-align: center;
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .batch img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+  }
+  .batch p {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+  }
