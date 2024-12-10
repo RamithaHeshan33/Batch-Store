@@ -3,8 +3,8 @@ require '../connection.php';
 require '../nav/nav.php';
 
 $batches = []; // Initialize batches array
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
-    $username = $_POST['name'];
+if (isset($_GET['username'])) {
+    $username = $_GET['username'];
 
     // Fetch the user's email based on the given username
     $userQuery = $conn->prepare("SELECT email FROM user WHERE username = ?");
@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
 
             <h1>Find Batch Earner</h1>
 
-            <form action="search.php" method="POST" enctype="multipart/form-data">
-                <label for="name">Username:</label>
-                <input type="text" id="name" name="name" required><br>
+            <form action="search.php" method="GET">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
                 <button type="submit" class="view-link">Search</button>
             </form>
         </div>
@@ -68,17 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
                             <a href="<?php echo htmlspecialchars($batch['verify_url']); ?>" target="_blank">
                                 <img src="<?php echo htmlspecialchars('../' . $batch['image_url']); ?>" alt="<?php echo htmlspecialchars($batch['name']); ?>" class="batch-image">
                             </a>
-                            <div class="buttons">
-                                <button class="update-link" onclick='openUpdateModal(<?php echo json_encode($batch); ?>)'>Update</button>
-                                <button class="delete-link" onclick='openDeleteModal(<?php echo $batch['id']; ?>)'>Delete</button>
-                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         </div>
-
-
     </div>
 </body>
 </html>
