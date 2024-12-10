@@ -76,6 +76,7 @@ $stmt->close();
                 <source src="../res/learn.mp4" type="video/mp4">
             </video>
         </div>
+        <marquee direction="left" style="color: white;">Please rename your batch image with your username (username_batchname.png)</marquee>
         <h1>Welcome to Your Dashboard</h1>
 
         <!-- Batch Insertion Form -->

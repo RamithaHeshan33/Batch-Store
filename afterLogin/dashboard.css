@@ -39,6 +39,7 @@ h2 {
 
 label {
   margin-bottom: 10px;
+  color: white;
 }
 
 select, input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="password"], input[type="email"], input[type="file"], textarea {
