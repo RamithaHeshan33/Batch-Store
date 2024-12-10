@@ -4,6 +4,7 @@ require 'connection.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
+    $username = $conn->real_escape_string($_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     $checkQuery = $conn->query("SELECT * FROM user WHERE email='$email'");
@@ -15,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Email already registered.";
     } else {
         // Insert user data
-        $query = "INSERT INTO user (name, email, password) VALUES ('$name', '$email', '$password')";
+        $query = "INSERT INTO user (name, email, username, password) VALUES ('$name', '$email','$username', '$password')";
         if (!$conn->query($query)) {
             $message = "Error: " . $conn->error;
         } else {
@@ -32,7 +33,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Batch Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -69,7 +70,7 @@ $conn->close();
             color: #555;
         }
         .form-group input {
-            width: 100%;
+            width: 93%;
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -124,6 +125,10 @@ $conn->close();
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
