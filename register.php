@@ -2,7 +2,7 @@
 require 'connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $conn->real_escape_string($_POST['name']);
+    $name = $conn->real_escape_string($_POST['uname']);
     $email = $conn->real_escape_string($_POST['email']);
     $username = $conn->real_escape_string($_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Email already registered.";
     } else {
         // Insert user data
-        $query = "INSERT INTO user (name, email, username, password) VALUES ('$name', '$email','$username', '$password')";
+        $query = "INSERT INTO user (uname, email, username, password) VALUES ('$name', '$email','$username', '$password')";
         if (!$conn->query($query)) {
             $message = "Error: " . $conn->error;
         } else {
@@ -119,8 +119,8 @@ $conn->close();
         <?php endif; ?>
         <form action="register.php" method="POST">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" required>
+                <label for="uname">Name:</label>
+                <input type="text" name="uname" id="uname" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>

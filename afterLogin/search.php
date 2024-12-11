@@ -1,6 +1,14 @@
 <?php
+session_start();
+ob_start();
 require '../connection.php';
 require '../nav/nav.php';
+
+// Redirect if the user is not logged in
+if (!isset($_SESSION['email'])) {
+    header('Location: ../login.php');
+    exit;
+}
 
 $batches = []; // Initialize batches array
 if (isset($_GET['username'])) {
@@ -17,11 +25,12 @@ if (isset($_GET['username'])) {
         $userEmail = $user['email'];
 
         // Fetch batches associated with the user's email
-        $batchQuery = $conn->prepare("SELECT * FROM batch WHERE email = ?");
+        $batchQuery = $conn->prepare("SELECT b.*, u.uname FROM batch b JOIN user u ON b.email = u.email WHERE b.email = ?");
         $batchQuery->bind_param("s", $userEmail);
         $batchQuery->execute();
         $batchResult = $batchQuery->get_result();
         $batches = $batchResult->fetch_all(MYSQLI_ASSOC);
+
     } else {
         // No user found with the given username
         $batches = [];
@@ -35,7 +44,7 @@ if (isset($_GET['username'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../afterLogin/dashboard.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="content">
@@ -46,7 +55,7 @@ if (isset($_GET['username'])) {
                 </video>
             </div>
 
-            <h1>Find Batch Earner</h1>
+            <h1 class="FBE">Find Batch Earner</h1>
 
             <form action="search.php" method="GET">
                 <label for="username">Username:</label>
@@ -56,22 +65,23 @@ if (isset($_GET['username'])) {
         </div>
 
         <div class="batchstore">
-            <h2>Your Batches</h2>
             <?php if (empty($batches)): ?>
                 <p>No batches added yet.</p>
             <?php else: ?>
+                <h2 class="searchtopic"><?php echo htmlspecialchars($batches[0]['uname']); ?>'s Batches</h2>
                 <div class="card-container">
                     <?php foreach ($batches as $batch): ?>
                         <div class="batch-card">
                             <h3><?php echo htmlspecialchars($batch['name']); ?></h3>
                             <a href="<?php echo htmlspecialchars($batch['verify_url']); ?>" target="_blank">
-                                <img src="<?php echo htmlspecialchars('../' . $batch['image_url']); ?>" alt="<?php echo htmlspecialchars($batch['name']); ?>" class="batch-image">
+                                <img src="<?php echo htmlspecialchars('../'.$batch['image_url']); ?>" alt="<?php echo htmlspecialchars($batch['name']); ?>" class="batch-image">
                             </a>
                         </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         </div>
+
     </div>
 </body>
 </html>

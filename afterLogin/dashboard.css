@@ -30,6 +30,7 @@
 h1 {
   font-size: 2rem;
   font-weight: 800;
+  color: rgb(100, 181, 246);
 }
 
 h2 {
@@ -215,4 +216,13 @@ select, input[type="text"], input[type="date"], input[type="time"], input[type="
 .alert-danger {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+.searchtopic {
+  font-size: 1.5rem;
+  padding: 20px;
+}
+
+.FBE {
+  color: rgb(100, 181, 246);
 }
