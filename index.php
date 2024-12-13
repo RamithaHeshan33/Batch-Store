@@ -28,9 +28,9 @@
                personalized batch collection today and take pride in your accomplishments with BatchSaver!
           </p>
           <div class="social items-center space-x-4 mt-4">
-              <a href="https://github.com/RamithaHeshan33" target="_blank"><i class='bx bxl-github'></i></a>
+              <a href="https://github.com/RamithaHeshan33/Batch-Store" target="_blank"><i class='bx bxl-github'></i></a>
               <a href="https://www.linkedin.com/in/ramithaheshan/" target="_blank"><i class='bx bxl-linkedin'></i></a>
-              <a href="https://www.youtube.com/@RamithaHeshan" target="_blank"><i class='bx bxl-youtube'></i></a>
+              <a href="https://www.youtube.com/@ramitha33" target="_blank"><i class='bx bxl-youtube'></i></a>
           </div>
       </div>
     </div>

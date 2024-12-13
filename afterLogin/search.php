@@ -4,17 +4,15 @@ ob_start();
 require '../connection.php';
 require '../nav/nav.php';
 
-// Redirect if the user is not logged in
 if (!isset($_SESSION['email'])) {
     header('Location: ../login.php');
     exit;
 }
 
-$batches = []; // Initialize batches array
+$batches = [];
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
 
-    // Fetch the user's email based on the given username
     $userQuery = $conn->prepare("SELECT email FROM user WHERE username = ?");
     $userQuery->bind_param("s", $username);
     $userQuery->execute();
@@ -24,15 +22,13 @@ if (isset($_GET['username'])) {
         $user = $userResult->fetch_assoc();
         $userEmail = $user['email'];
 
-        // Fetch batches associated with the user's email
-        $batchQuery = $conn->prepare("SELECT b.*, u.uname FROM batch b JOIN user u ON b.email = u.email WHERE b.email = ?");
+        $batchQuery = $conn->prepare("SELECT b.*, u.* FROM batch b JOIN user u ON b.email = u.email WHERE b.email = ?");
         $batchQuery->bind_param("s", $userEmail);
         $batchQuery->execute();
         $batchResult = $batchQuery->get_result();
         $batches = $batchResult->fetch_all(MYSQLI_ASSOC);
 
     } else {
-        // No user found with the given username
         $batches = [];
     }
 }

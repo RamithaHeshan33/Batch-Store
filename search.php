@@ -17,7 +17,7 @@ if (isset($_GET['username'])) {
         $userEmail = $user['email'];
 
         // Fetch batches associated with the user's email
-        $batchQuery = $conn->prepare("SELECT b.*, u.uname FROM batch b JOIN user u ON b.email = u.email WHERE b.email = ?");
+        $batchQuery = $conn->prepare("SELECT b.*, u.* FROM batch b JOIN user u ON b.email = u.email WHERE b.email = ?");
         $batchQuery->bind_param("s", $userEmail);
         $batchQuery->execute();
         $batchResult = $batchQuery->get_result();
